@@ -1,6 +1,5 @@
 // # Example servicecentral worker
 var ServiceCentral = require('servicecentral'),
-	request = require('request'),
 	status = true;
 
 // Start a new service for our namespace
