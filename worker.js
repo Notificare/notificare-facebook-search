@@ -34,7 +34,13 @@ service.on('work', function(name, config, delegate, done) {
 				}
 				// Fetch entries that match the search
 				console.log('Fetching %s', url);
-				service.fetch({url: url, json: true, headers: {'accept-language':config.language || 'en_US'}}, function(err, res, body) {
+				service.fetch({
+					url: url, 
+					json: true, 
+					headers: {
+						'accept-language':config.language || 'en_US'
+					}
+				}, function(err, res, body) {
 					if (err) {
 						done(err);
 					} else {
@@ -58,7 +64,7 @@ service.on('work', function(name, config, delegate, done) {
 											}
 										});
 									} else {
-										done('run did not complete successfully');
+										done(new Error('run did not complete successfully'));
 									}
 								}
 							}
