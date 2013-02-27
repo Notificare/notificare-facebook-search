@@ -34,7 +34,13 @@ service.on('work', function(name, config, delegate, done) {
 				}
 				// Fetch entries that match the search
 				console.log('Fetching %s', url);
-				service.fetch({url: url, json: true, headers: {'accept-language':config.language || 'en_US'}}, function(err, res, body) {
+				service.fetch({
+					url: url, 
+					json: true, 
+					headers: {
+						'accept-language':config.language || 'en_US'
+					}
+				}, function(err, res, body) {
 					if (err) {
 						done(err);
 					} else {
@@ -147,6 +153,22 @@ service.on('feed', function(query, delegate, done) {
 			done(err);
 		} else {
 			done(null, {data: data});
+		}
+	});
+});
+
+//## Event handler for webhook tests
+//Respond by sending a notification with the message in the payload
+service.on('test', function(delegate, done) {
+	var notification = {
+		type: 'alert',
+		message: 'Facebook Search Test'
+	};
+	delegate.sendNotification(notification, function(err, result) {
+		if (err) {
+			done(err);
+		} else {
+			done(null, {result: 'aye aye captain!'});
 		}
 	});
 });
