@@ -58,7 +58,7 @@ service.on('work', function(name, config, delegate, done) {
 											}
 										});
 									} else {
-										done('run did not complete successfully');
+										done(new Error('run did not complete successfully'));
 									}
 								}
 							}
@@ -135,7 +135,7 @@ service.on('callback', function(action, userInfo, payload, delegate, done) {
 			}
 		});
 	} else {
-		done('missing info');
+		done(new Error('missing info'));
 	}
 });
 
