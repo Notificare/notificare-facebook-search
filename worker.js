@@ -47,7 +47,7 @@ service.on('work', function(name, config, delegate, done) {
 					} else {
 						// If there's data
 						if (body.data) {
-							debug('Got %s new status updates', body.data.length);
+							debug('Got %s new status updates for ', body.data.length, name);
 							var length = 0,
 								successFul = 0;
 							// Wait for all entries to be stored and notified
@@ -101,7 +101,7 @@ service.on('work', function(name, config, delegate, done) {
 												debug('Got error from push: %s', err.message);
 												ready(false);
 											} else {
-												debug('Got result form push: %s', result);
+												debug('Got result from push: %s', result);
 												ready(true);
 											}
 										});
