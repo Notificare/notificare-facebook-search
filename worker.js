@@ -1,5 +1,6 @@
 // # Example servicecentral worker
 var ServiceCentral = require('servicecentral'),
+	debug = require('debug')('notificare:facebookSearch'),
 	status = true;
 
 // Start a new service for our namespace
@@ -14,7 +15,7 @@ var service = new ServiceCentral.Service('facebook-search');
 // - The work itself
 // - A callback(err, result) to call when done
 service.on('work', function(name, config, delegate, done) {
-	console.log('Doing work for %s', name);
+	debug('Doing work for %s', name);
 	// Do some work, call done(err, result) when done
 	if (config && config.search) {
 		var url = "https://graph.facebook.com/search?q=" + encodeURIComponent(config.search);
@@ -33,7 +34,7 @@ service.on('work', function(name, config, delegate, done) {
 					url += "&limit=25";
 				}
 				// Fetch entries that match the search
-				console.log('Fetching %s', url);
+				debug('Fetching %s', url);
 				service.fetch({
 					url: url, 
 					json: true, 
@@ -46,7 +47,7 @@ service.on('work', function(name, config, delegate, done) {
 					} else {
 						// If there's data
 						if (body.data) {
-							console.log('Got %s new status updates', body.data.length);
+							debug('Got %s new status updates', body.data.length);
 							var length = 0,
 								successFul = 0;
 							// Wait for all entries to be stored and notified
@@ -97,8 +98,10 @@ service.on('work', function(name, config, delegate, done) {
 										};
 										delegate.sendNotification(notification, function(err, result) {
 											if (err) {
+												debug('Got error from push: %s', err.message);
 												ready(false);
 											} else {
+												debug('Got result form push: %s', result);
 												ready(true);
 											}
 										});
@@ -126,7 +129,7 @@ service.on('status', function(done) {
 //## Event handler for callback POSTs.
 // Update a data entry to be in- or excluded from the feed 
 service.on('callback', function(action, userInfo, payload, delegate, done) {
-	console.log('Handling callback action %s', action);
+	debug('Handling callback action %s', action);
 	// Handle callback from App / Dashboard, call done(err, result) when done
 	if (userInfo && userInfo.id && action) {
 		delegate.updateData(userInfo.id, (action == 'show'), function(err, result) {

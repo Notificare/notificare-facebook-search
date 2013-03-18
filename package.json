@@ -1,5 +1,7 @@
 {
 	"name": "notificare-facebook-search",
 	"version": "0.1.0",
-	"dependencies": {}
+	"dependencies": {
+		"debug": ">=0.7.0"
+	}
 }
