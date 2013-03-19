@@ -108,11 +108,15 @@ service.on('work', function(name, config, delegate, done) {
 									}
 								});
 							});
+						} else {
+							done(null, {result: 'run completed, no new status updates'});
 						}
 					}
 				});
 			}
 		});
+	} else {
+		done(new Error('unconfigured service'));
 	}
 });
 
