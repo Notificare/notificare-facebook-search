@@ -109,6 +109,7 @@ service.on('work', function(name, config, delegate, done) {
 								});
 							});
 						} else {
+							debug('run completed, no new status updates for %s', name);
 							done(null, {result: 'run completed, no new status updates'});
 						}
 					}
@@ -116,6 +117,7 @@ service.on('work', function(name, config, delegate, done) {
 			}
 		});
 	} else {
+		debug('unconfigured service');
 		done(new Error('unconfigured service'));
 	}
 });
