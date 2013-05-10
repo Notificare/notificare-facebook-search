@@ -76,6 +76,7 @@ service.on('work', function(name, config, delegate, done) {
 								}
 								delegate.storeData(time, entry, false, function(err, result) {
 									if (err) {
+										debug('Error storing data: %s', err.message);
 										done(err);
 									} else {
 										var notification = {
