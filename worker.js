@@ -1,5 +1,6 @@
 // # Example servicecentral worker
 var ServiceCentral = require('servicecentral'),
+	util = require('util'),
 	debug = require('debug')('notificare:facebookSearch'),
 	status = true;
 
@@ -102,7 +103,7 @@ service.on('work', function(name, config, delegate, done) {
 												debug('Got error from push: %s', err.message);
 												ready(false);
 											} else {
-												debug('Got result from push: %s', result);
+												debug('Got result from push: %s', util.inspect(result));
 												ready(true);
 											}
 										});
