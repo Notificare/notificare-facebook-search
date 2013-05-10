@@ -54,7 +54,9 @@ service.on('work', function(name, config, delegate, done) {
 							// Wait for all entries to be stored and notified
 							function ready(success) {
 								length++;
-								successFul++;
+								if (success) {
+									successFul++;
+								}
 								if (length == body.data.length) {
 									// if this was the last entry
 									if (successFul == length) {
