@@ -47,7 +47,7 @@ service.on('work', function(name, config, delegate, done) {
 						done(err);
 					} else {
 						// If there's data
-						if (body.data) {
+						if (body.data && body.data.length > 0) {
 							debug('Got %s new status updates for ', body.data.length, name);
 							var length = 0,
 								successFul = 0;
